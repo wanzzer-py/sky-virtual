@@ -1,1 +1,536 @@
+<!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8" />  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky-Virtual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #257;
+      --bg-light: #f5f5f5;
+      --bg-dark: #121212;
+      --text-light: #333;
+      --text-dark: #eee;
+      --box-bg-light: #ffffffdd;
+      --box-bg-dark: #2a2a2a;
+    }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+     .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.logo-container img.logo-img {
+  height: 120px;
+  width: 160px;
+  transition: filter 0.3s ease;
+}
+
+.dark-mode .logo-img {
+  filter: invert(1);
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+    .dark-mode {
+      background: #1e1e1e;
+      color: #ddd;
+    }
+    .dark-mode header {
+      background: #090909;
+      color: white;
+    }
+    .dark-mode input,
+    .dark-mode select,
+    .dark-mode button {
+      background-color: #333;
+      color: white;
+      border-color: #555;
+    }
+    .dark-mode input::placeholder {
+      color: #ccc;
+    }
+    .dark-mode .dropdown-menu button {
+      color: white;
+    }
+    header {
+      display: flex;
+      justify-content: -between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #ffffffcc;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #ddd;
+      transition: background 0.3s ease;
+    }
+    .dark-mode header {
+      background: #222222cc;
+      backdrop-filter: blur(10px);
+    }
+    button, input[type="file"], input[type="text"], input[type="email"], input[type="password"] {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #1a1a2a;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px 0;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #loginPanel, #mainPanel {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+    .dark-mode #loginPanel, .dark-mode #mainPanel {
+      background: #1e1e1e;
+    }
+    .hidden {
+      display: none;
+    }
+    #searchBar {
+      width: 95%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    #progressBar {
+      background: #ccc;
+      height: 10px;
+      width: 100%;
+      border-radius: 5px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+    #progressBarInner {
+      height: 100%;
+      width: 0;
+      background: #2196f3;
+      transition: width 0.4s ease;
+    }
+    .file-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .file-card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 12px;
+      width: 170px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .file-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .file-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .file-card-name {
+      text-align: center;
+      margin-top: 6px;
+      font-size: 14px;
+      word-break: break-word;
+    }
+    .file-card-time {
+      font-size: 12px;
+      color: #777;
+      margin-top: 4px;
+    }
+    .dropdown {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #aaa;
+      border-radius: 12px;
+      right: 0;
+      top: 30px;
+      z-index: 99;
+      padding: 5px;
+      min-width: 140px;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+    .dropdown-menu button {
+      display: block;
+      width: 100%;
+      background: none;
+      color: #333;
+      padding: 6px 8px;
+      text-align: left;
+      border-radius: 6px;
+    }
+    .dropdown-menu button:hover {
+      background: #ddd;
+    }
+    .dark-mode .file-card {
+      background: #2a2a2a;
+    }
+    .dark-mode .dropdown-menu {
+      background: rgba(50, 50, 50, 0.8);
+      color: white;
+      border-color: #444;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+    @media screen and (max-width: 600px) {
+      #mainPanel, #loginPanel {
+        width: 90%;
+        padding: 15px;
+      }
+      .file-card {
+        width: 100%;
+      }
+    }
+    @keyframes bounceIn {
+      0%   { transform: scale(0.5); opacity: 0; }
+      60%  { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 600px) {
+      .file-card {
+        width: 100%;
+      }
+      .file-box {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .file-card.uploaded {
+      animation: bounceIn 0.5s ease;
+      border: 2px solid #4caf50;
+    }
+    /* Modal Preview */
+    #previewModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      display: none;
+    }
+    #previewModal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+    
+    <meta src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></meta>
+  </style>
+</head>
+<body>
+<!-- Body content remains unchanged -->
+  <header>
+  <div class="logo-container">
+    <img src="https://i.ibb.co/Nn2jcf4n/Untitled20-20250804224057.png" alt="Logo Sky-Virtual" class="logo-img" />
+  </div>
+  <button id="toggleThemeBtn" onclick="toggleTheme()">🌓 Tukar Tema</button>
+</header>
+<div id="authPanel">
+  <h2>Sky-Virtual Login</h2>
+  <input type="email" id="emailInput" placeholder="Email" />
+  <input type="password" id="passwordInput" placeholder="Password" />
+  <button onclick="supabaseLogin()">Login</button>
+  <button onclick="supabaseRegister()">Register</button>
+</div>
+
+  <div id="registerPanel" class="hidden">
+    <h2>Daftar Akaun</h2>
+    <input type="text" id="regUsername" placeholder="Username" />
+    <input type="password" id="regPassword" placeholder="Password" oninput="checkStrength(this.value)" />
+    <div id="strengthMeter" style="height: 10px; border-radius: 4px; background: #ccc; margin-top: 5px;"></div>
+    <button onclick="register()">Daftar</button>
+    <button onclick="showLogin()">Balik ke Login</button>
+  </div>  <div id="mainPanel" class="container hidden">
+    <div id="uploadProgressContainer">
+      <div id="uploadProgress"></div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <select id="folderSelect" onchange="renderFiles(this.value)"></select>
+      <button onclick="createFolder()">+ Folder Baru</button>
+    </div>
+    <input type="text" id="searchBar" placeholder="Cari fail...">
+        <section>
+  <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)">
+  <div id="progressBar"><div id="progressBarInner"></div></div>
+  <div id="folderTabs"></div>
+  <div id="fileBox" class="file-box"></div>
+  
+  <div id="modalPreview" class="hidden" onclick="this.classList.add('hidden')">
+    <img src="" alt="Preview">
+  </div>
+</section>
+
+  </div>
+ <script>
+    let currentUser = null;
+    const fileInput = document.getElementById("fileInput");
+
+    window.onload = () => {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add("dark-mode");
+      }
+    };
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    function login() {
+      const u = username.value;
+      const p = password.value;
+      const users = JSON.parse(localStorage.getItem("zak_users") || "{}");
+
+      if (users[u] && users[u].password === p) {
+        currentUser = u;
+        loginPanel.classList.add("hidden");
+        mainPanel.classList.remove("hidden");
+        updateFolderDropdown("Umum");
+        renderFiles("Umum");
+      } else {
+        alert("Salah login.");
+      }
+    }
+
+    function showRegister() {
+      loginPanel.classList.add("hidden");
+      registerPanel.classList.remove("hidden");
+    }
+
+    function showLogin() {
+      registerPanel.classList.add("hidden");
+      loginPanel.classList.remove("hidden");
+    }
+
+    function register() {
+      const u = regUsername.value;
+      const p = regPassword.value;
+      const users = JSON.parse(localStorage.getItem("zak_users") || "{}");
+
+      if (users[u]) return alert("Username dah wujud.");
+      if (p.length < 6) return alert("Password pendek!");
+
+      users[u] = { password: p, folders: { "Umum": [] } };
+      localStorage.setItem("zak_users", JSON.stringify(users));
+      alert("Berjaya daftar.");
+      showLogin();
+    }
+
+    function updateFolderDropdown(selected = "Umum") {
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      const folders = users[currentUser].folders || {};
+      const folderSelect = document.getElementById("folderSelect");
+      folderSelect.innerHTML = "";
+      Object.keys(folders).forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f;
+        opt.textContent = f;
+        if (f === selected) opt.selected = true;
+        folderSelect.appendChild(opt);
+      });
+    }
+
+    function createFolder() {
+      const folderName = prompt("Nama folder:");
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      if (users[currentUser].folders[folderName]) {
+        return alert("Folder sudah wujud!");
+      }
+      users[currentUser].folders[folderName] = [];
+      localStorage.setItem("zak_users", JSON.stringify(users));
+      updateFolderDropdown(folderName);
+      renderFiles(folderName);
+    }
+
+    function uploadFiles() {
+      const files = fileInput.files;
+      const folder = folderSelect.value;
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      const folderData = users[currentUser].folders[folder];
+
+      Array.from(files).forEach((file, i) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          folderData.push({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: e.target.result,
+            uploaded: new Date().toLocaleString()
+          });
+          if (i === files.length - 1) {
+            localStorage.setItem("zak_users", JSON.stringify(users));
+            renderFiles(folder);
+            fileInput.value = '';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderFiles(folder) {
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      const files = users[currentUser].folders[folder] || [];
+      const box = document.getElementById("fileBox");
+      box.innerHTML = "";
+
+      files.forEach((file, i) => {
+        const div = document.createElement("div");
+        div.className = "file-card";
+        div.innerHTML = `
+          <img src="${file.data}" onclick="previewImage('${file.data}')">
+          <div class="file-card-name">${file.name}</div>
+          <div style="font-size:12px; color:gray">${file.uploaded || ''}</div>
+          <div class="dropdown">
+            <button onclick="toggleMenu(this)">☰</button>
+            <div class="dropdown-menu">
+              <button onclick="renameFile('${folder}', ${i})">Rename</button>
+              <button onclick="deleteFile('${folder}', ${i})">Delete</button>
+              <button onclick="downloadFile('${folder}', ${i})">Download</button>
+            </div>
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function toggleMenu(btn) {
+      const menu = btn.nextElementSibling;
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+function previewFile(file) {
+  const modal = document.getElementById("previewModal");
+  const img = document.getElementById("previewImage");
+  if (file.type.startsWith("image/")) {
+    img.src = file.url;
+    modal.style.display = "flex";
+  } else {
+    alert("Fail bukan jenis gambar.");
+  }
+}
+    
+
+    function renameFile(folder, index) {
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      const name = prompt("Nama baru:");
+      if (name) {
+        users[currentUser].folders[folder][index].name = name;
+        localStorage.setItem("zak_users", JSON.stringify(users));
+        renderFiles(folder);
+      }
+    }
+
+    function deleteFile(folder, index) {
+      if (!confirm("Padam fail?")) return;
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      users[currentUser].folders[folder].splice(index, 1);
+      localStorage.setItem("zak_users", JSON.stringify(users));
+      renderFiles(folder);
+    }
+
+    function downloadFile(folder, index) {
+      const users = JSON.parse(localStorage.getItem("zak_users"));
+      const file = users[currentUser].folders[folder][index];
+      const a = document.createElement("a");
+      a.href = file.data;
+      a.download = file.name;
+      a.click();
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const SUPABASE_URL = 'https://uhdzbyxzphrnrtjzfzkr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoZHpieXh6cGhybnJ0anpmemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNzA1NzAsImV4cCI6MjA2OTk0NjU3MH0.2HxE6uDQZYl3hO4nA4MI4CAdYZpkfOFWPThcc5h7PoQ'; // anon public key
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// REGISTER
+async function supabaseRegister() {
+  const email = document.getElementById('emailInput').value;
+  const password = document.getElementById('passwordInput').value;
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    alert("❌ Pendaftaran gagal: " + error.message);
+  } else {
+    alert("✅ Pendaftaran berjaya! Sila semak emel untuk pengesahan.");
+  }
+}
+
+async function supabaseLogin() {
+  const { error, data } = await supabase.auth.signInWithPassword({
+    email: emailInput.value.trim(),
+    password: passwordInput.value
+  })
+
+  if (error) {
+    if (error.message.includes("Invalid login credentials")) {
+      alert("❌ Emel/kata laluan salah atau tidak wujud.")
+    } else if (error.message.includes("email not confirmed")) {
+      alert("📧 Sila sahkan emel dahulu sebelum login.")
+    } else {
+      alert("❌ Login gagal: " + error.message)
+    }
+    return
+  }
+
+  alert("✅ Login berjaya!");
+  authPanel.classList.add("hidden");
+  mainPanel.classList.remove("hidden");
+  loadFoldersToDropdown();
+}
+// LOGOUT
+async function supabaseLogout() {
+  await supabase.auth.signOut();
+  document.getElementById("authPanel").classList.remove("hidden");
+  document.getElementById("mainPanel").classList.add("hidden");
+}
+</script>
+</body>
+</html>
