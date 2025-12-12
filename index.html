@@ -486,7 +486,7 @@ function previewFile(file) {
 const SUPABASE_URL = 'https://uhdzbyxzphrnrtjzfzkr.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoZHpieXh6cGhybnJ0anpmemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNzA1NzAsImV4cCI6MjA2OTk0NjU3MH0.2HxE6uDQZYl3hO4nA4MI4CAdYZpkfOFWPThcc5h7PoQ'; // anon public key
 
-const supabase = supabase.createClient('https://uhdzbyxzphrnrtjzfzkr.supabase.co', SUPABASE_KEY);
+const supabase = supabase.createClient('https://uhdzbyxzphrnrtjzfzkr.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoZHpieXh6cGhybnJ0anpmemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNzA1NzAsImV4cCI6MjA2OTk0NjU3MH0.2HxE6uDQZYl3hO4nA4MI4CAdYZpkfOFWPThcc5h7PoQ');
 
 // REGISTER
 async function supabaseRegister() {
